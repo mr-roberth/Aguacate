@@ -1,5 +1,5 @@
 // Pegue aquí la URL /exec de su Web App de Google Apps Script.
-const API_URL = localStorage.getItem('aguacate_api_url') || '';
+const API_URL = localStorage.getItem('aguacate_api_url') || 'https://script.google.com/macros/s/AKfycbyRooL7xdmVZ2pI2QFHw8yuAE50WmAyZbNrbPWnE8Qb39NtZKq2Vea0hhEtohHFpnsB/exec';
 const QKEY='aguacate_offline_queue', USERKEY='aguacate_capturo';
 const $=id=>document.getElementById(id);
 function nowDefaults(){const d=new Date();$('fecha').value=d.toISOString().slice(0,10);$('hora').value=d.toTimeString().slice(0,5);$('capturo').value=localStorage.getItem(USERKEY)||''}
