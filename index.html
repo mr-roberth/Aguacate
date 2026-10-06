@@ -15,12 +15,12 @@
 <label>Fecha<input id="fecha" type="date" required></label>
 <label>Hora<input id="hora" type="time" required></label>
 <label>Folio peso<input id="folio" inputmode="numeric" required></label>
-<label>Lote<input id="lote" required></label>
+<label>Lote<input id="lote" required readonly><small>Se genera automáticamente con proveedor + fecha</small></label>
 <label>Peso bruto (kg)<input id="bruto" type="number" step="0.01" required></label>
 <label>Tara (kg)<input id="tara" type="number" step="0.01" required></label>
 <label>Peso proveedor (kg)<input id="proveedorPeso" type="number" step="0.01" required></label>
 <label>Operador<input id="operador" required></label>
-<label>Proveedor<input id="proveedor" required></label>
+<label>Proveedor<select id="proveedor" required><option value="">Cargando proveedores…</option></select></label>
 <label>Recibe 1<input id="recibe1"></label>
 <label>Recibe 2<input id="recibe2"></label>
 <label>Capturó<input id="capturo" required></label>
@@ -36,6 +36,6 @@
 </form>
 </section>
 <section class="card slim"><div><b>Sincronización</b><p id="syncText" class="muted">Sin registros pendientes.</p></div><button id="syncBtn" class="secondary">Sincronizar</button></section>
-</main>
+<section class="card"><div class="dashHead"><div><h2>Dashboard</h2><p class="muted">Resumen de recepciones registradas</p></div><button id="csvBtn" class="secondary">Descargar data CSV</button></div><div class="kpis"><div><small>Recepciones</small><strong id="kRecep">—</strong></div><div><small>Kg recibidos</small><strong id="kKg">—</strong></div><div><small>Proveedores</small><strong id="kProv">—</strong></div></div><div id="bars" class="bars"></div></section></main>
 <div id="toast"></div><script src="app.js"></script>
 </body></html>
