@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#173b2f"><title>Recepción Aguacate | Oleolab</title>
+<link rel="stylesheet" href="styles.css"><link rel="manifest" href="manifest.webmanifest">
+</head>
+<body>
+<header><div><b>OLEOLAB</b><span>Recepción de materia prima vegetal</span></div><div id="net" class="pill">En línea</div></header>
+<main>
+<section class="card">
+<h1>Recepción de aguacate</h1><p class="muted">Captura operativa · tolerancia ±1%</p>
+<form id="form">
+<div class="grid">
+<label>Fecha<input id="fecha" type="date" required></label>
+<label>Hora<input id="hora" type="time" required></label>
+<label>Folio peso<input id="folio" inputmode="numeric" required></label>
+<label>Lote<input id="lote" required></label>
+<label>Peso bruto (kg)<input id="bruto" type="number" step="0.01" required></label>
+<label>Tara (kg)<input id="tara" type="number" step="0.01" required></label>
+<label>Peso proveedor (kg)<input id="proveedorPeso" type="number" step="0.01" required></label>
+<label>Operador<input id="operador" required></label>
+<label>Proveedor<input id="proveedor" required></label>
+<label>Recibe 1<input id="recibe1"></label>
+<label>Recibe 2<input id="recibe2"></label>
+<label>Capturó<input id="capturo" required></label>
+</div>
+<label>Observaciones<textarea id="obs" rows="2"></textarea></label>
+<div class="result">
+<div><small>Peso báscula</small><strong id="pesoBascula">0.00 kg</strong></div>
+<div><small>Diferencia</small><strong id="diferencia">0.00%</strong></div>
+<div><small>Peso oficial</small><strong id="pesoOficial">0.00 kg</strong></div>
+<div><small>Criterio</small><strong id="criterio">—</strong></div>
+</div>
+<button type="submit">Guardar recepción</button>
+</form>
+</section>
+<section class="card slim"><div><b>Sincronización</b><p id="syncText" class="muted">Sin registros pendientes.</p></div><button id="syncBtn" class="secondary">Sincronizar</button></section>
+</main>
+<div id="toast"></div><script src="app.js"></script>
+</body></html>
