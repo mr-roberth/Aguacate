@@ -1,15 +1,3 @@
-const SHEET_NAME='BD_Recepciones';
-function doPost(e){
-  const lock=LockService.getScriptLock(); lock.waitLock(10000);
-  try{
-    const d=JSON.parse(e.postData.contents||'{}');
-    const sh=SpreadsheetApp.getActive().getSheetByName(SHEET_NAME);
-    if(!sh) throw new Error('No existe '+SHEET_NAME);
-    const ids=sh.getLastRow()>1?sh.getRange(2,1,sh.getLastRow()-1,1).getDisplayValues().flat():[];
-    if(ids.includes(d.id)) return out({ok:true,duplicate:true,id:d.id});
-    sh.appendRow([d.id,d.fecha,d.hora,d.folio,d.lote,d.pesoBruto,d.pesoTara,d.pesoBascula,d.pesoProveedor,d.pesoBascula-d.pesoProveedor,d.diferenciaPct,d.pesoOficial,d.criterio,d.operador,d.proveedor,d.recibe1,d.recibe2,d.capturo,d.fechaCaptura,d.observaciones]);
-    return out({ok:true,id:d.id});
-  }catch(err){return out({ok:false,error:String(err)})}finally{lock.releaseLock()}
-}
-function doGet(){return out({ok:true,service:'Aguacate Oleolab',ts:new Date().toISOString()})}
-function out(o){return ContentService.createTextOutput(JSON.stringify(o)).setMimeType(ContentService.MimeType.JSON)}
+const SHEET_ID='1fo07NTi9sL8255aDec-CQ9RBfBEJT0nnWn8YhvRp_X8';const TAB='BD_Recepciones';
+function doPost(e){try{const d=JSON.parse(e.postData.contents),s=SpreadsheetApp.openById(SHEET_ID).getSheetByName(TAB);const ids=s.getLastRow()>1?s.getRange(2,1,s.getLastRow()-1,1).getValues().flat():[];if(ids.includes(d.id))return out({ok:true,duplicate:true});const diff=(d.pesoProveedor!==''&&d.pesoProveedor!=null)?Number(d.pesoBascula)-Number(d.pesoProveedor):'';s.appendRow([d.id,d.fecha,d.hora,d.folio,d.lote,Number(d.pesoBruto),Number(d.pesoTara),Number(d.pesoBascula),Number(d.pesoProveedor),diff,d.diferenciaPct,Number(d.pesoOficial),d.criterio,d.operador,d.proveedor,d.recibe1,d.recibe2,d.capturo,d.fechaCaptura,d.observaciones||'']);return out({ok:true})}catch(err){return out({ok:false,error:String(err)})}}
+function doGet(){return out({ok:true,app:'Aguacate Oleolab'})}function out(o){return ContentService.createTextOutput(JSON.stringify(o)).setMimeType(ContentService.MimeType.JSON)}
