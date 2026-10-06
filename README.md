@@ -1,20 +1,19 @@
 # Aguacate · Oleolab
-Interfaz móvil para capturar la bitácora de recepción de materia prima vegetal y enviar los registros a Google Sheets.
+PWA para recepción de materia prima vegetal.
 
-## Regla de peso
-- Peso báscula = peso bruto - tara.
-- Diferencia % = ABS(peso báscula - peso proveedor) / peso proveedor.
-- Si la diferencia es <= 1%, el peso oficial es el del proveedor.
-- Si supera 1%, el peso oficial es el obtenido en báscula Oleolab.
+**Google Sheet de producción:** https://docs.google.com/spreadsheets/d/1fo07NTi9sL8255aDec-CQ9RBfBEJT0nnWn8YhvRp_X8/edit
 
-## Google Sheets + Apps Script
-1. Use el archivo **BD_Recepcion_Aguacate_Oleolab.xlsx** y ábralo/impórtelo como Google Sheets.
-2. En Sheets: Extensiones > Apps Script.
-3. Copie el contenido de `gas/Code.gs`.
-4. Implementar > Nueva implementación > Aplicación web. Ejecutar como usted y acceso según su política interna.
-5. Copie la URL terminada en `/exec` y péguela en `API_URL` al inicio de `app.js`.
-6. Confirme que la pestaña se llame exactamente `BD_Recepciones`.
+## Regla
+Peso báscula = bruto - tara. Si ABS(peso báscula - peso proveedor) / peso proveedor <= 1%, se conserva el peso proveedor. Si supera 1%, se usa báscula Oleolab.
 
-## GitHub Pages
-En Settings > Pages seleccione **Deploy from a branch**, rama `main`, carpeta `/(root)`.
-La app funciona como PWA básica y conserva capturas pendientes en el dispositivo para enviarlas al recuperar conexión. Cada registro usa UUID para evitar duplicados en la hoja.
+## Activación del endpoint (único paso manual)
+Google Apps Script exige autorizar e implementar desde la cuenta propietaria:
+1. En el Sheet: Extensiones > Apps Script.
+2. Copiar `gas/Code.gs`.
+3. Implementar > Nueva implementación > Aplicación web.
+4. Ejecutar como: usted. Acceso: cualquier usuario con el enlace (o la política autorizada por Oleolab).
+5. Copiar la URL terminada en `/exec`.
+6. Abrir la app de GitHub Pages y en consola ejecutar:
+   `localStorage.setItem('aguacate_api_url','URL_EXEC'); location.reload();`
+
+La app conserva capturas offline y sincroniza al recuperar conexión. Cada registro usa UUID para evitar duplicados.
