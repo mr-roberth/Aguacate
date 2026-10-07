@@ -1,7 +1,155 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#173b2f"><title>Recepción Aguacate | Oleolab</title><link rel="stylesheet" href="styles.css"><link rel="manifest" href="manifest.webmanifest"></head><body><header><div><b>OLEOLAB</b><span>Recepción de materia prima vegetal</span></div><div id="net" class="pill">En línea</div></header><main>
-<section class="card"><h1>Recepción de aguacate</h1><p class="muted">Captura operativa · tolerancia ±1%</p><form id="form"><div class="grid">
-<label>Fecha<input id="fecha" type="date" required></label><label>Hora<input id="hora" type="time" required></label><label>Folio peso<input id="folio" inputmode="numeric" required></label><label>Lote<input id="lote" required readonly><small>Automático por proveedor + fecha</small></label><label>Peso bruto (kg)<input id="bruto" type="number" step=".01" required></label><label>Tara (kg)<input id="tara" type="number" step=".01" required></label><label>Peso proveedor (kg)<input id="proveedorPeso" type="number" step=".01" required></label><label>Operador<input id="operador" required></label><label>Proveedor<select id="proveedor" required><option value="">Cargando…</option></select></label><label>Recibe 1<input id="recibe1"></label><label>Recibe 2<input id="recibe2"></label><label>Capturó<input id="capturo" required></label></div><label>Observaciones<textarea id="obs" rows="2"></textarea></label><div class="citasBox"><div class="citasTitle"><b>Citas relacionadas</b><span id="citasHint">Selecciona proveedor y fecha</span></div><div id="citas"></div></div>
-<div id="citasBox" class="citasBox"><div class="citasTitle"><b>Citas relacionadas</b><span id="citasHint">Selecciona proveedor y fecha</span></div><div id="citas"></div></div>
-<div class="result"><div><small>Peso báscula</small><strong id="pesoBascula">0.00 kg</strong></div><div><small>Diferencia</small><strong id="diferencia">0.00%</strong></div><div><small>Peso oficial</small><strong id="pesoOficial">0.00 kg</strong></div><div><small>Criterio</small><strong id="criterio">—</strong></div></div><button type="submit">Guardar recepción</button></form></section>
-<section class="card slim"><div><b>Sincronización</b><p id="syncText" class="muted">Sin registros pendientes.</p></div><button id="syncBtn" class="secondary">Sincronizar</button></section>
-<section class="card"><div class="dashHead"><div><h2>Dashboard</h2><p class="muted">Recepción + citas de recolección relacionadas</p></div><button id="csvBtn" class="secondary">Descargar data CSV</button></div><div class="kpis"><div><small>Recepciones</small><strong id="kRecep">—</strong></div><div><small>Kg recibidos</small><strong id="kKg">—</strong></div><div><small>Proveedores</small><strong id="kProv">—</strong></div><div><small>Kg programados vinculados</small><strong id="kProg">—</strong></div><div><small>Cumplimiento</small><strong id="kCumpl">—</strong></div></div><div id="bars" class="bars"></div></section></main><div id="toast"></div><script src="app.js"></script></body></html>
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#173b2f">
+  <title>Recepción Aguacate | Oleolab</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="manifest.webmanifest">
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand">
+        <img src="assets/oleolab-logo.png" alt="Oleolab" class="brand-logo">
+        <div class="brand-info">
+          <span class="brand-section">RECEPCIÓN DE MATERIA PRIMA</span>
+          <span class="brand-subtitle">Control de recepción de aguacate</span>
+        </div>
+      </div>
+      <div id="net" class="pill">En línea</div>
+    </div>
+  </header>
+
+  <main>
+    <section class="card reception-card">
+      <div class="section-header">
+        <div>
+          <span class="eyebrow">OPERACIÓN</span>
+          <h1>Recepción de aguacate</h1>
+          <p class="muted">Captura operativa · tolerancia de peso ±1%</p>
+        </div>
+        <div class="section-icon">KG</div>
+      </div>
+
+      <form id="form">
+        <div class="form-title">Datos de recepción</div>
+
+        <div class="grid">
+          <label>Fecha<input id="fecha" type="date" required></label>
+          <label>Hora<input id="hora" type="time" required></label>
+          <label>Folio peso<input id="folio" inputmode="numeric" required></label>
+
+          <label>
+            Lote
+            <input id="lote" required readonly>
+            <small>Automático por proveedor + fecha</small>
+          </label>
+
+          <label>Peso bruto (kg)<input id="bruto" type="number" step=".01" required></label>
+          <label>Tara (kg)<input id="tara" type="number" step=".01" required></label>
+          <label>Peso proveedor (kg)<input id="proveedorPeso" type="number" step=".01" required></label>
+          <label>Operador<input id="operador" required></label>
+
+          <label>
+            Proveedor
+            <select id="proveedor" required>
+              <option value="">Cargando proveedores…</option>
+            </select>
+          </label>
+
+          <label>Recibe 1<input id="recibe1"></label>
+          <label>Recibe 2<input id="recibe2"></label>
+          <label>Capturó<input id="capturo" required></label>
+        </div>
+
+        <label class="observaciones">
+          Observaciones
+          <textarea id="obs" rows="3" placeholder="Información adicional de la recepción…"></textarea>
+        </label>
+
+        <div id="citasBox" class="citasBox">
+          <div class="citasTitle">
+            <div>
+              <span class="eyebrow">PLANEACIÓN</span>
+              <b>Citas relacionadas</b>
+            </div>
+            <span id="citasHint">Selecciona proveedor y fecha</span>
+          </div>
+          <div id="citas"></div>
+        </div>
+
+        <div class="result">
+          <div class="result-item">
+            <small>Peso báscula</small>
+            <strong id="pesoBascula">0.00 kg</strong>
+          </div>
+          <div class="result-item">
+            <small>Diferencia</small>
+            <strong id="diferencia">0.00%</strong>
+          </div>
+          <div class="result-item highlight">
+            <small>Peso oficial</small>
+            <strong id="pesoOficial">0.00 kg</strong>
+          </div>
+          <div class="result-item">
+            <small>Criterio</small>
+            <strong id="criterio">—</strong>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="primary-button">Guardar recepción</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="card slim sync-card">
+      <div class="sync-info">
+        <div class="sync-indicator"></div>
+        <div>
+          <b>Sincronización</b>
+          <p id="syncText" class="muted">Sin registros pendientes.</p>
+        </div>
+      </div>
+      <button id="syncBtn" class="secondary">Sincronizar</button>
+    </section>
+
+    <section class="card dashboard-card">
+      <div class="dashHead">
+        <div>
+          <span class="eyebrow">INDICADORES</span>
+          <h2>Dashboard</h2>
+          <p class="muted">Recepción + citas de recolección relacionadas</p>
+        </div>
+        <button id="csvBtn" class="secondary">Descargar data CSV</button>
+      </div>
+
+      <div class="kpis">
+        <div class="kpi"><small>Recepciones</small><strong id="kRecep">—</strong></div>
+        <div class="kpi"><small>Kg recibidos</small><strong id="kKg">—</strong></div>
+        <div class="kpi"><small>Proveedores</small><strong id="kProv">—</strong></div>
+        <div class="kpi"><small>Kg programados vinculados</small><strong id="kProg">—</strong></div>
+        <div class="kpi"><small>Cumplimiento</small><strong id="kCumpl">—</strong></div>
+      </div>
+
+      <div class="chart-section">
+        <div class="chart-title">
+          <b>Recepción por proveedor</b>
+          <span>Kilogramos acumulados</span>
+        </div>
+        <div id="bars" class="bars"></div>
+      </div>
+    </section>
+
+    <footer>
+      <img src="assets/oleolab-logo.png" alt="Oleolab">
+      <span>Control de recepción de materia prima</span>
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
