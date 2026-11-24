@@ -23,7 +23,26 @@
   </header>
 
   <main>
-    <section class="card reception-card">
+    <section class="card" id="supplierCatalog">
+<div class="section-header"><div><span class="eyebrow">CATÁLOGOS</span><h2>Proveedores</h2><p class="muted">Alta y administración de proveedores de aguacate</p></div><button type="button" id="supplierToggle" class="secondary" aria-expanded="false">Administrar</button></div>
+<div id="supplierPanel" hidden>
+<p id="supplierStatus" role="status" class="muted"></p>
+<form id="supplierForm">
+<div class="grid">
+<label>Proveedor / razón social<input id="supplierName" required maxlength="150"></label>
+<label>Código para lote<input id="supplierCode" required pattern="[A-Za-z0-9]{1,20}" maxlength="20"><small>Ejemplo: 025</small></label>
+<label>Alias en bitácora de citas<input id="supplierAlias" maxlength="150"></label>
+<label>Estado<select id="supplierActive"><option value="SI">Activo</option><option value="NO">Inactivo</option></select></label>
+<label>Observaciones<textarea id="supplierObs" rows="2" maxlength="500"></textarea></label>
+</div>
+<div class="form-actions"><button type="submit" class="primary-button" id="supplierSave" disabled>Guardar proveedor</button> <button type="button" id="supplierReset" class="secondary">Nuevo / cancelar</button></div>
+</form>
+<label>Buscar proveedor<input id="supplierSearch" type="search" placeholder="Nombre o código"></label>
+<div id="supplierList"></div>
+<p><a href="https://docs.google.com/spreadsheets/d/1fo07NTi9sL8255aDec-CQ9RBfBEJT0nnWn8YhvRp_X8/edit" target="_blank" rel="noopener noreferrer">Abrir catálogo en Google Sheets (administradores)</a></p>
+<button type="button" id="supplierRefresh" class="secondary">Actualizar catálogo</button>
+</div></section>
+<section class="card reception-card">
       <div class="section-header">
         <div>
           <span class="eyebrow">OPERACIÓN</span>
@@ -150,6 +169,6 @@
   </main>
 
   <div id="toast"></div>
-  <script src="app.js"></script>
+  <script src="app.js?v=2"></script>
 </body>
 </html>
