@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#173b2f">
   <title>Recepción Aguacate | Oleolab</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=3">
   <link rel="manifest" href="manifest.webmanifest">
 </head>
 <body>
@@ -23,9 +23,10 @@
   </header>
 
   <main>
-    <section class="card" id="supplierCatalog">
-<div class="section-header"><div><span class="eyebrow">CATÁLOGOS</span><h2>Proveedores</h2><p class="muted">Alta y administración de proveedores de aguacate</p></div><button type="button" id="supplierToggle" class="secondary" aria-expanded="false">Administrar</button></div>
-<div id="supplierPanel" hidden>
+<nav class="app-tabs" aria-label="Módulos"><button type="button" data-view="reception" aria-pressed="true">▤ Recepciones</button><button type="button" data-view="suppliers" aria-pressed="false">♙ Proveedores</button><button type="button" data-view="dashboard" aria-pressed="false">▥ Dashboard</button></nav>
+    <section class="card" id="supplierCatalog" hidden>
+<div class="section-header"><div><span class="eyebrow">CATÁLOGOS</span><h2>Proveedores</h2><p class="muted">Alta y administración de proveedores de aguacate</p></div></div>
+<div id="supplierPanel">
 <p id="supplierStatus" role="status" class="muted"></p>
 <form id="supplierForm">
 <div class="grid">
@@ -135,7 +136,7 @@
       <button id="syncBtn" class="secondary">Sincronizar</button>
     </section>
 
-    <section class="card dashboard-card">
+    <section class="card dashboard-card" hidden>
       <div class="dashHead">
         <div>
           <span class="eyebrow">INDICADORES</span>
@@ -149,17 +150,17 @@
         <div class="kpi"><small>Recepciones</small><strong id="kRecep">—</strong></div>
         <div class="kpi"><small>Kg recibidos</small><strong id="kKg">—</strong></div>
         <div class="kpi"><small>Proveedores</small><strong id="kProv">—</strong></div>
-        <div class="kpi"><small>Kg programados vinculados</small><strong id="kProg">—</strong></div>
-        <div class="kpi"><small>Cumplimiento</small><strong id="kCumpl">—</strong></div>
+
       </div>
 
-      <div class="chart-section">
+      <div class="dash-charts"><div class="chart-section"><div class="chart-title"><b>Recepciones por mes</b><span>Últimos 12 meses del periodo registrado</span></div><div id="monthlyChart"></div></div><div class="chart-section"><div class="chart-title"><b>Recepciones por día</b><span>Últimos 30 días del periodo registrado</span></div><div id="dailyChart"></div></div></div><div class="chart-section">
         <div class="chart-title">
           <b>Recepción por proveedor</b>
           <span>Kilogramos acumulados</span>
         </div>
         <div id="bars" class="bars"></div>
       </div>
+      <div class="chart-section"><div class="chart-title"><b>Cumplimiento por proveedor</b><span>Kg oficiales de recepciones vinculadas / kg programados de citas únicas · referencia 100%</span></div><div id="complianceChart"></div></div>
     </section>
 
     <footer>
@@ -169,6 +170,6 @@
   </main>
 
   <div id="toast"></div>
-  <script src="app.js?v=2"></script>
+  <script src="app.js?v=3"></script>
 </body>
 </html>
