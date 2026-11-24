@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#173b2f">
   <title>Recepción Aguacate | Oleolab</title>
-  <link rel="stylesheet" href="styles.css?v=3">
+  <link rel="stylesheet" href="styles.css?v=4">
   <link rel="manifest" href="manifest.webmanifest">
 </head>
 <body>
@@ -23,6 +23,7 @@
   </header>
 
   <main>
+<div id="updateNotice" class="update-notice" hidden>Hay una nueva versión disponible. Guarda tu captura antes de actualizar. <button type="button" onclick="location.reload()">Actualizar ahora</button></div>
 <nav class="app-tabs" aria-label="Módulos"><button type="button" data-view="reception" aria-pressed="true">▤ Recepciones</button><button type="button" data-view="suppliers" aria-pressed="false">♙ Proveedores</button><button type="button" data-view="dashboard" aria-pressed="false">▥ Dashboard</button></nav>
     <section class="card" id="supplierCatalog" hidden>
 <div class="section-header"><div><span class="eyebrow">CATÁLOGOS</span><h2>Proveedores</h2><p class="muted">Alta y administración de proveedores de aguacate</p></div></div>
@@ -146,6 +147,7 @@
         <button id="csvBtn" class="secondary">Descargar data CSV</button>
       </div>
 
+      <div class="dashboard-filters"><div class="grid"><label>Proveedor<select id="filterProvider"><option value="">Todos los proveedores</option></select></label><label>Mes<input type="month" id="filterMonth"></label><label>Día<input type="date" id="filterDay"></label></div><div class="filter-footer"><span id="filterSummary" role="status" class="muted"></span><button type="button" class="secondary" id="filterClear">Limpiar filtros</button></div></div>
       <div class="kpis">
         <div class="kpi"><small>Recepciones</small><strong id="kRecep">—</strong></div>
         <div class="kpi"><small>Kg recibidos</small><strong id="kKg">—</strong></div>
@@ -153,7 +155,7 @@
 
       </div>
 
-      <div class="dash-charts"><div class="chart-section"><div class="chart-title"><b>Recepciones por mes</b><span>Últimos 12 meses del periodo registrado</span></div><div id="monthlyChart"></div></div><div class="chart-section"><div class="chart-title"><b>Recepciones por día</b><span>Últimos 30 días del periodo registrado</span></div><div id="dailyChart"></div></div></div><div class="chart-section">
+      <div class="dash-charts"><div class="chart-section"><div class="chart-title"><b>Recepciones por mes</b><span>Últimos 12 meses o mes seleccionado</span></div><div id="monthlyChart"></div></div><div class="chart-section"><div class="chart-title"><b>Recepciones por día</b><span>Últimos 30 días o periodo seleccionado</span></div><div id="dailyChart"></div></div></div><div class="chart-section">
         <div class="chart-title">
           <b>Recepción por proveedor</b>
           <span>Kilogramos acumulados</span>
@@ -165,11 +167,12 @@
 
     <footer>
       <img src="assets/oleolab-logo.png" alt="Oleolab">
-      <span>Control de recepción de materia prima</span>
+      <span>Control de recepción de materia prima · V4</span>
     </footer>
   </main>
 
+  <div id="chartTooltip" role="tooltip" hidden></div>
   <div id="toast"></div>
-  <script src="app.js?v=3"></script>
+  <script src="app.js?v=4"></script>
 </body>
 </html>
